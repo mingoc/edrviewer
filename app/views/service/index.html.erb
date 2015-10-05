@@ -1,0 +1,40 @@
+<% @services.each do |ser|  %>
+ <%= link_to ser, controller:"service", name:ser %> |
+<% end %>
+
+<%= form_tag("/service/#{@service}", method: "get") do %>
+
+  <%=label_tag 'From' %>
+  <%=text_field_tag 'from', @from.to_s[0..9]%>
+
+  <%=label_tag 'To' %>
+  <%=text_field_tag 'to',@to.to_s[0..9] %>
+
+  <%= submit_tag 'Apply' %>
+
+<% end %>
+
+
+
+ 
+
+<h1><%=@service%></h1>
+<p>Request count per 5 minuts</p>
+
+
+<%= serials1=@edrs1.keys.map do |code|
+      {name: code, data: @edrs1[code]}   
+    end     
+   line_chart serials1
+
+%> 
+
+<p>Percentage per 5 minuts(%)</p>
+
+<%= serials2=@edrs2.keys.map do |code|
+      {name: code, data: @edrs2[code]}   
+    end     
+   line_chart serials2
+
+%> 
+
